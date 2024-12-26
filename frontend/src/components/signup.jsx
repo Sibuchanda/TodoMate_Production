@@ -17,7 +17,7 @@ function Signup() {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        'http://localhost:4002/user/signup',
+        'https://todomate-5zak.onrender.com/user/signup',
         {
           username,
           email,
