@@ -11,7 +11,7 @@ import path from 'path'
 const app = express()
 
 dotenv.config();
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 4002;
 const DB_URI = process.env.MONGODB_URI
 
 const _dirname = path.resolve();

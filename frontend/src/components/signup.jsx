@@ -17,7 +17,7 @@ function Signup() {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        'https://todomate-5zak.onrender.com/user/signup',
+        `${import.meta.env.VITE_BACKEND_URL}/user/signup`,
         {
           username,
           email,
@@ -52,7 +52,7 @@ function Signup() {
           <form onSubmit={handleRegister}>
             {/* Username */}
             <div className='mb-4'>
-              <label className='block mb-2 font-semibold'>Username</label>
+              <label className='block mb-2 font-semibold'>Username </label>
               <input
                 className='w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500'
                 type='text'

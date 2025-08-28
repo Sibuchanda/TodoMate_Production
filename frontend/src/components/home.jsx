@@ -38,7 +38,7 @@ function Home() {
                 setLoading(true);
 
                 // Fetch user's todos
-                const todosResponse = await axios.get("https://todomate-5zak.onrender.com/todo/fetch", {
+                const todosResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/todo/fetch`, {
                     withCredentials: true,
                     headers: {
                         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ function Home() {
                 });
 
                 // Fetch user details
-                const userResponse = await axios.get("https://todomate-5zak.onrender.com/user/details", {
+                const userResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/details`, {
                     withCredentials: true,
                     headers: {
                         "Content-Type": "application/json",
@@ -77,7 +77,7 @@ function Home() {
         if (!newTodo) return;
         try {
             const token = localStorage.getItem("jwt");
-            const response = await axios.post("https://todomate-5zak.onrender.com/todo/create", {
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/todo/create`, {
                 text: newTodo,
                 completed: false
             }, {
@@ -98,7 +98,7 @@ function Home() {
         const todo = todos.find((t) => t._id === id);
         try {
             const token = localStorage.getItem("jwt");
-            const response = await axios.put(`https://todomate-5zak.onrender.com/todo/update/${id}`, {
+            const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/todo/update/${id}`, {
                 ...todo,
                 completed: !todo.completed
             }, {
@@ -117,7 +117,7 @@ function Home() {
     const deleteTodo = async (id) => {
         try {
             const token = localStorage.getItem("jwt");
-            await axios.delete(`https://todomate-5zak.onrender.com/todo/delete/${id}`, {
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/todo/delete/${id}`, {
                 withCredentials: true,
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -135,7 +135,7 @@ function Home() {
         if (!editedText) return;
         try {
             const token = localStorage.getItem("jwt");
-            const response = await axios.put(`https://todomate-5zak.onrender.com/todo/edit/${id}`, {
+            const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/todo/edit/${id}`, {
                 text: editedText,
                 completed: false
             }, {
