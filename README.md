@@ -21,8 +21,9 @@ Make sure the following tools are installed on your system:
 
 # 1. Clone the Repository
 ```
-git clone https://github.com/<your-username>/<your-repo-name>.git
-cd <your-repo-name>
+HTTPS : git clone https://github.com/Sibuchanda/TodoMate_Production.git
+SSH : git clone git@github.com:Sibuchanda/TodoMate_Production.git
+cd TodoMate_Production
 ```
 # 2. Run the Application Using Docker
 
