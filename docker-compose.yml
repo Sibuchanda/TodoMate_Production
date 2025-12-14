@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: mongo
+    volumes:
+      - todo-mongo-data:/data/db
+    ports:
+      - "27017:27017"
+
+  backend:
+    build: ./backend  # Look for ./backend/Dockerfile. Build image automatically. Assign a temporary image name. Run container
+    container_name: backend
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      MONGODB_URI: mongodb://mongo:27017/TodoMate
+      FRONTEND_URL: http://localhost:3000
+      JWT_SECRET_KEY: IamLester
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_BACKEND_URL: http://localhost:5000
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  todo-mongo-data:

@@ -1,20 +1,19 @@
 import express from 'express'
 import dotenv from 'dotenv'
+dotenv.config();
 import mongoose from 'mongoose'
-import todoRoute from '../backend/routes/todo.route.js'
-import userRoute from '../backend/routes/user.route.js'
+import todoRoute from './routes/todo.route.js'
+import userRoute from './routes/user.route.js'
 //Without cors we can't access backend database in frontend. it is a middleware
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
-import path from 'path'
+import connectDB from './config/connectDB.js';
 
 const app = express()
 
-dotenv.config();
-const PORT = process.env.PORT || 4002;
-const DB_URI = process.env.MONGODB_URI
 
-const _dirname = path.resolve();
+const PORT = process.env.PORT || 4002;
+const DB_URI = process.env.MONGODB_URI;
 
 
 //------Middleware--------
@@ -28,24 +27,14 @@ app.use(cors({
 }))
 
 
-
+console.log(process.env.MONGODB_URI);
 //--------- Database connection ---------
-try {
-    await mongoose.connect(DB_URI)
-    console.log("Successfully connected to MongoDB...");
-} catch (err) {
-    console.log(err);
-}
+await connectDB(process.env.MONGODB_URI);
 
 
 //--------Routes ------------
 app.use("/todo", todoRoute);
 app.use("/user", userRoute);
-
-app.use(express.static(path.join(_dirname, "/frontend/dist")));
-app.get('*',(req,res)=>{
-    res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
-})
 
 
 app.listen(PORT, () => {
